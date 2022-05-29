@@ -7,6 +7,7 @@
   --bg-hero-futter: #2f303a;
   --complementary-color: #fff;
   --hover-color: #188ce8;
+  --typical-time-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -140,6 +141,8 @@ img {
   line-height: 1.14;
   letter-spacing: 0.02em;
   text-decoration: none;
+
+  transition: color 250ms var(--typical-time-function);
 }
 
 .site-nav .link:hover,
@@ -154,6 +157,7 @@ img {
 
 .site-nav .link.current::after {
   position: absolute;
+  left: 0;
   bottom: -1px;
   content: '';
   display: block;
@@ -186,6 +190,8 @@ img {
   line-height: 1.14;
   letter-spacing: 0.02em;
   text-decoration: none;
+
+  transition: color 250ms var(--typical-time-function);
 }
 
 .contacts-nav .link:hover,
@@ -371,6 +377,9 @@ img {
   height: 44px;
   border-radius: 50%;
   color: #afb1b8;
+
+  transition: color 250ms var(--typical-time-function),
+    background-color 250ms var(--typical-time-function);
 }
 
 .social-link:hover,
@@ -394,11 +403,16 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 170px;
   height: 92px;
+
   border: 1px solid #afb1b8;
   border-radius: 4px;
   color: #afb1b8;
+
+  transition: color 250ms var(--typical-time-function),
+    border-color 250ms var(--typical-time-function);
 }
 
 .clients-link:hover,
@@ -431,6 +445,8 @@ img {
   font-size: 14px;
   line-height: 1.71;
   text-decoration: none;
+
+  transition: color 250ms var(--typical-time-function);
 }
 
 .contacts .link-adress:hover,
@@ -445,6 +461,8 @@ img {
   font-size: 14px;
   line-height: 1.71;
   text-decoration: none;
+
+  transition: color 250ms var(--typical-time-function);
 }
 
 .contacts .link:hover,
@@ -507,6 +525,8 @@ img {
   font-weight: 700;
   line-height: 1.87;
   letter-spacing: 0.06em;
+
+  transition: background-color 250ms var(--typical-time-function);
 }
 
 .button.primery:hover,
@@ -526,6 +546,10 @@ img {
 
   line-height: 1.62;
   letter-spacing: 0.03em;
+
+  transition: color 250ms var(--typical-time-function),
+    background-color 250ms var(--typical-time-function),
+    box-shadow 250ms var(--typical-time-function);
 }
 
 .button.secondary:hover,
@@ -568,6 +592,8 @@ img {
 .work-link {
   display: block;
   text-decoration: none;
+
+  transition: box-shadow 250ms var(--typical-time-function);
 }
 
 .work-link:hover,
@@ -576,36 +602,34 @@ img {
     1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
-.work-link:hover .work-item-text {
-  opacity: 1;
-}
-
-.work-link:hover .work-thumb::before {
-  opacity: 1;
-}
-
 .work-thumb {
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
 }
 
-.work-thumb::before {
+.work-thumb .overlay {
   position: absolute;
-  display: inline-block;
-  opacity: 0;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  content: '';
   width: 100%;
   height: 100%;
   background-color: rgba(33, 150, 243, 0.9);
+
+  transform: translateY(100%);
+  transition: transform 250ms var(--typical-time-function);
+}
+
+.work-link:hover .overlay,
+.work-link:focus .overlay {
+  transform: translateY(0);
 }
 
 .work-item-text {
-  position: absolute;
-  opacity: 0;
-
   max-width: 322px;
   max-height: 168px;
 
@@ -637,4 +661,63 @@ img {
   padding: 20px 24px;
   border: 1px solid #eeeeee;
   border-top: none;
+}
+
+/* -------------------------МОДАЛЬНОЕ ОКНО--------------------------- */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.2);
+
+  opacity: 1;
+  transition: opacity 250ms var(--typical-time-function);
+}
+
+.backdrop.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  min-width: 528px;
+  min-height: 581px;
+
+  background-color: var(--primery-white-color);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 250ms var(--typical-time-function);
+}
+
+.button-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
